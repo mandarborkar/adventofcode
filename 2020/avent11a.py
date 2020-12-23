@@ -23,7 +23,7 @@ def countneighbours (waitingroom,currentx,currenty):
     return (noofneighbours)
 # main ()
 
-f1 = open("/Users/mborkar/PycharmProjects/hello-world/avent11input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent11input.txt", "r")
 waitingroom = f1.readlines()
 print (len(waitingroom))
 print (len(waitingroom[0]))

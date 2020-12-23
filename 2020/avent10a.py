@@ -1,5 +1,5 @@
 
-f1 = open("/Users/mborkar/PycharmProjects/hello-world/avent10input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent10input.txt", "r")
 adapter = f1.readlines()
 print (len(adapter))
 adapterint = [0]

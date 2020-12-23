@@ -1,4 +1,4 @@
-f1 = open("/Users/mborkar/PycharmProjects/hello-world/avent8input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent8input.txt", "r")
 instructionset = f1.readlines()
 # print (len(instructionset))
 instructiondetails = []

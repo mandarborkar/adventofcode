@@ -1,7 +1,7 @@
 #from aocd import get_data
 #mylist = get_data(day=4)
 
-f1 = open("/Users/mborkar/PycharmProjects/hello-world/avent4input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent4input.txt", "r")
 mypassporstring = f1.read()
 passport = mypassporstring.split("\n\n")
 

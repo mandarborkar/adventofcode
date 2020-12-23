@@ -1,4 +1,4 @@
-f1 = open("/Users/mborkar/PycharmProjects/hello-world/avent6input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent6input.txt", "r")
 questionsstring = f1.read()
 #print (questionsstring)
 questions = questionsstring.split("\n\n")

@@ -1,4 +1,4 @@
-f1 = open("/Users/mborkar/PycharmProjects/hello-world/avent5input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent5input.txt", "r")
 boardingpass = f1.readlines()
 for i in range (0,len(boardingpass)):
     boardingpass[i]=boardingpass[i].replace('\n','')
