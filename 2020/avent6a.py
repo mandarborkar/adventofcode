@@ -11,7 +11,7 @@ for i in range (0,len(questions)):
 numberofquestions=0
 for i in range (0,len(questions)):
     while questions[i] :
-        # print (questions[0][0])
+        print (questions[i])
         questions[i] = questions[i].replace(questions[i][0],'')
         numberofquestions += 1
         # print(numberofquestions)

@@ -5,10 +5,12 @@ for i in range (0,len(schedule)):
     schedule[i] = schedule[i].replace ('\n','')
 
 
+print ("schedule = ")
 print (schedule)
 schedule[1] = schedule[1].replace ('x,','')
 print(schedule[1])
 busnumbers = schedule[i].split (",")
+print (busnumbers)
 
 waitingtime = []
 minimumwait = 0

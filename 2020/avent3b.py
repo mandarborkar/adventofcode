@@ -8,7 +8,7 @@ def numberoftrees (mylist, slope, step):
             print (mylist[i][(i*slope)] + " no tree on    " + str(i) + ";" + str(i*slope) + ";"+ str(addtotree))
     return (int(addtotree))
 
-f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent3input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/adventlist3ab.txt", "r")
 mylist = f1.readlines()
 
 rowcount=len(mylist)
