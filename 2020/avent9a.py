@@ -4,7 +4,7 @@ transmit = f1.readlines()
 for i in range (0, len(transmit)):
     transmit[i] = int(transmit[i].replace('\n', ''))
 # print (transmit)
-
+# start
 for i in range (25, len(transmit)):
     diffarr = []
     foundmatch = 'N'
