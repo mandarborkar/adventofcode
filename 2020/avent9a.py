@@ -26,4 +26,3 @@ for i in range (25, len(transmit)):
         print(transmit[i - 25:i])
         print(diffarr)
         break
-
