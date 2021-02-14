@@ -1,5 +1,15 @@
 
+def calculate_value (operation):
+    value = int(operation[0])
+    for i in range (1, len(operation), 2):
+        if operation[i] == '+':
+            value = value + int(operation[i + 1])
+        elif operation[i] == '*':
+            value = value * int(operation[i + 1])
+    return value
+
 def find_operation (operation):
+    value = 0
     i=0
     j=0
     int_op = []
@@ -12,17 +22,10 @@ def find_operation (operation):
             return operation[1:j]
         elif operation[j] == '(':
             int_op=find_operation(operation[j:])
-            j = j +2+ len(int_op)
-        print (str(j) + ' ' + operation[j:])
+            value += calculate_value(int_op)
+            j = j + 2 + len(int_op)
+        print (str(j) + ' ' + operation[j:]+ ' ' + str(value))
 
-def calculate_value (operation):
-    value = int(operation[0])
-    for i in range (1, len(operation), 2):
-        if operation[i] == '+':
-            value = value + int(operation[i + 1])
-        elif operation[i] == '*':
-            value = value * int(operation[i + 1])
-    return value
 
 f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2020/avent18input.txt", "r")
 operation = f1.readlines()
