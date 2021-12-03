@@ -5,6 +5,7 @@ instructiondetails = []
 
 h = 0;
 d = 0;
+aim = 0;
 
 for i in range(0, len(instructionset)):
     instructionset[i] = instructionset[i].replace ( '\n', '' )
@@ -17,15 +18,13 @@ for i in range(0, len(instructionset)):
 
     if instruction == 'down':
         print ('down');
-        d += step;
+        aim += step;
     elif instruction == 'up':
         print ( 'up' );
-        d -= step;
-    elif instruction == 'left':
-        print ( 'left' );
-        h -= step;
+        aim -= step;
     elif instruction == 'forward':
-        print ( 'right' );
+        print ( 'forward' );
         h += step;
+        d += aim * step;
 total = h * d ;
 print ( 'depth=' + str ( d ) + ' hor=' + str ( h ) + ' total=' + str(total));
