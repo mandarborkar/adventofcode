@@ -6,9 +6,7 @@ subdetails = [0,0,0,0,0,0,0,0,0,0,0,0]
 for j in range (0,12):
     for i in range(0, len(subinfo)):
         subinfo[i] = subinfo[i].replace ( '\n', '' )
-        #print (subinfo[i]);
         subdetails[j] += int(subinfo[i][j]);
-    # print ( str ( subdetails[j] ) + ' ' + str ( len ( subinfo ) / 2 ) )
     if  subdetails[j] >= len(subinfo)/2 :
         print ('0 wins = ' + str(subdetails[j]));
         subinfo = [subinfo[k] for k in range (len ( subinfo ) ) if subinfo[k][j] == '0'];
@@ -21,7 +19,7 @@ for j in range (0,12):
     print (str(j)+ ' >> ');
     print (subinfo);
     if len(subinfo) == 1 :
-        break;
+        exit;
 
 print (int(subinfo[0]   ,2));
 print (1371*3264);
