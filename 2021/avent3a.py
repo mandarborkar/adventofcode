@@ -1,4 +1,4 @@
-f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2021/avent3input.txt", "r")
+f1 = open("2021/avent3input.txt", "r")
 
 subinfo = f1.readlines()
 subdetails = [0,0,0,0,0,0,0,0,0,0,0,0]
