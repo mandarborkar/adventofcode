@@ -1,4 +1,4 @@
-# v1
+# v3
 def printboard(board):
     for i in  board :
         print ( i )
