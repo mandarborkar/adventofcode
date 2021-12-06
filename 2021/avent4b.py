@@ -27,8 +27,12 @@ def foundwinner(board):
                 print ( "found winner col " + str ( i )  )
                 return i * -1
     return -10
+
+
+
 #main program
-f1 = open ( "/Users/mborkar/PycharmProjects/adventofcode/2021/avent4input.txt", "r" )
+# f1 = open ( "/Users/mborkar/PycharmProjects/adventofcode/2021/avent4input.txt", "r" )
+f1 = open ( "2021/avent4input.txt", "r" )
 fileinput = f1.readlines ()
 numsel = fileinput[0].replace ( '\n', '' ).split ( "," )
 print ( numsel )
