@@ -1,3 +1,31 @@
+def findnumber (display, wiring) :
+    numx = -1
+    for j in range ( 0, len ( wiring ) ):
+        wirenum = set ( wiring[j] )
+        if len ( display ) == len ( wirenum ) and len ( display.difference ( wirenum ) ) == 0:
+            numx = j
+            # print ( 'set ver = ' + str ( j ) )
+            break;
+    return numx;
+
+def calculateFinalnumber (display, wiring ):
+    processwires = display[len (display)-4:]
+
+    wire1 = set (display[len(display)-4])
+    totalnum = findnumber(wire1, wiring)*1000
+
+    wire1 = set ( display[len ( display ) - 3] )
+    totalnum += findnumber ( wire1, wiring ) * 100
+
+    wire1 = set ( display[len ( display ) - 2] )
+    totalnum += findnumber ( wire1, wiring ) * 10
+
+    wire1 = set ( display[len ( display )-1] )
+    totalnum += findnumber ( wire1, wiring )
+
+    print ('Number ' + str(totalnum))
+    return (totalnum)
+
 filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent8testinput.txt'
 
 digitlist = [[]]
@@ -24,7 +52,7 @@ digitwire.pop(0)
 
 # start find the wires for each of the digits 0,....8
 for i in range (0,len(digitlist)):
-    print(digitlist[i])
+    # print(digitlist[i])
     # start with finding the lenght of each observed characters
     # process the easy digits 1, 4, 7 and 8 that have unique lengths
     for j in range (0,len(digitlist[i])):
@@ -85,51 +113,15 @@ for i in range (0,len(digitlist)):
                 # print ('think 2')
                 digitwire[i][2] = digitlist[i][j]
 
-    print('processed digits = ' + str(digitwire[i]))
+    # print('processed digits = ' + str(digitwire[i]))
 
+print ('Starting to process the numbers...')
 
-'''
-totalnumber = 0
-for x in digitlist :
-    singledigit = x.split(' ')
-    print (singledigit)
-    singledigitlen = []
-    for y in singledigit :
-        if len(y) == 7 :
-            singledigitlen.append(8)
-        elif len(y) == 2 :
-            singledigitlen.append(1)
-        elif len(y) == 4 :
-            singledigitlen.append(4)
-        elif len(y) == 3 :
-            singledigitlen.append(7)
-        elif len(y) == 5 :  # 2,3,5
-            singledigitlen.append(5)
-        elif len(y) == 6 :  # 0,6,9
-            singledigitlen.append(9)
-        elif y == 'cdfbe' :
-            singledigitlen.append(5)
-        elif y == 'fcadb':
-            singledigitlen.append(3)
-        else:
-            singledigitlen.append(0)
-    number = singledigitlen[0]*1000+ singledigitlen[1] * 100 + singledigitlen[2] * 10 + singledigitlen[3]
-    totalnumber += number
-    print (singledigitlen)
-    print (number)
+totalnum = 0
 
-print (digitlist)
-print (totalnumber)
-'''
-'''
-acedgfb: 8
-cdfbe: 5
-gcdfa: 2
-fbcad: 3
-dab: 7
-cefabd: 9
-cdfgeb: 6
-eafb: 4
-cagedb: 0
-ab: 1
-'''
+for i in range (0,len(digitlist)):
+    print (digitlist[i][len(digitlist[i])-4:])
+    print (digitwire[i])
+    totalnum += calculateFinalnumber ( digitlist[i][len ( digitlist[i] ) - 4:], digitwire[i] )
+
+print (totalnum)
