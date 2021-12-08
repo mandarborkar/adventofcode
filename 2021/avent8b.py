@@ -16,7 +16,7 @@ for readline in open(filename):
         singledigit.append (x)
     digitlist.append (singledigit)
     digitsize.append ([0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-    digitwire.append (['','','','','','','','',''])
+    digitwire.append (['','','','','','','','','',''])
 
 digitlist.pop(0)
 digitsize.pop(0)
@@ -37,22 +37,55 @@ for i in range (0,len(digitlist)):
             digitwire[i][7] = digitlist[i][j]
         elif digitsize[i][j] == 7 :
             digitwire[i][8] = digitlist[i][j]
-    print ( digitsize[i] )
-    print ( digitwire[i] )
-    for j in range ( 0, len ( digitlist[i] ) - 1 ):
-        if digitsize[i][j] == 5 :   # 2, 3, 5
+    # print ( digitsize[i] )
+    # print ( digitwire[i] )
+    for j in range ( 0, len ( digitlist[i])):
+        if digitsize[i][j] == 5 and digitwire[i][3] == '' :   # 2, 3, 5
             processwire = digitlist[i][j]
-            print (processwire)
             if (processwire.count(digitwire[i][1][0]) > 0) and (processwire.count(digitwire[i][1][1]) > 0) :
                 digitwire[i][3] = digitlist[i][j]
-            else:
-                digitwire[i][2] = digitlist[i][j]
-        elif digitsize[i][j] == 6 : # 0. 6, 9
+            # else:
+                # print ( 'Still search betwee 2 and 5 ' + str ( digitlist[i][j] ) )
+        elif digitsize[i][j] == 6 and digitwire[i][6] == '': # 0. 6, 9
             processwire = digitlist[i][j]
-            print (processwire)
-            digitwire[i][6] = digitlist[i][j]
-    print(digitsize[i])
-    print(digitwire[i])
+            if (processwire.count(digitwire[i][1][0]) == 0) or (processwire.count(digitwire[i][1][1]) == 0) :
+                digitwire[i][6] = digitlist[i][j]
+            # else:
+                # print ( 'Still search between 0 and 9 ' + str ( digitlist[i][j] ) )
+    for j in range ( 0, len ( digitlist[i])):
+        if digitsize[i][j] == 6 and j != 6 :  # 9 and 0
+            processwire = digitlist[i][j]
+            checkwires = digitwire[i][4] + digitwire[i][3]
+            # print ('processwires ' + processwire )
+            # print ('checkwires ' + checkwires)
+            digit1 = set(checkwires)
+            digit2 = set(processwire)
+            digit3 = digit1.difference(digit2)
+            # print ('difference ' + str(digit3))
+            if len(digit3) == 0 :
+                # print ('found 9')
+                digitwire[i][9] = digitlist[i][j]
+            else:
+                # print ('think 0')
+                digitwire[i][0] = digitlist[i][j]
+    for j in range ( 0, len ( digitlist[i])):
+        if digitsize[i][j] == 5 and j != 3 :  # 2 and 5
+            processwire = digitlist[i][j]
+            checkwires = digitwire[i][9]
+            # print ('processwires ' + processwire )
+            # print ('checkwires ' + checkwires)
+            digit1 = set(checkwires)
+            digit2 = set(processwire)
+            digit3 = digit1.difference(digit2)
+            # print ('difference ' + str(digit3))
+            if len(digit3) == 1 :
+                # print ('found 5')
+                digitwire[i][5] = digitlist[i][j]
+            else:
+                # print ('think 2')
+                digitwire[i][2] = digitlist[i][j]
+
+    print('processed digits = ' + str(digitwire[i]))
 
 
 '''
