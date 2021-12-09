@@ -1,22 +1,41 @@
-filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent9testinput.txt'
+def checkdeepest (x, y, map) :
 
-digitlist = [[]]
-digitsize = [[]]
-digitwire = [[]]
+    if (y-1 >= 0) :
+        if ( map[x][y] >= map[x][y-1] ):
+            return False
+    if (y+1 < len(map[0])) :
+        if ( map[x][y] >= map[x][y+1] ):
+            return False
+    if (x + 1 < len(map)) :
+        if (map[x][y] >= map[x+1][y]):
+            return False
+    if (x-1 >= 0) :
+        if ( map[x][y] >= map[x-1][y] ):
+            return False
 
-singledigit = []
+    return True
 
-for readline in open(filename):
-    first, second = readline.strip().replace('\n','').split('|')
-    singledigit =[]
-    for x in first.strip().split (' '):
-        singledigit.append (x)
-    for x in second.strip().split (' '):
-        singledigit.append (x)
-    digitlist.append (singledigit)
-    digitsize.append ([0,0,0,0,0,0,0,0,0,0,0,0,0,0])
-    digitwire.append (['','','','','','','','','',''])
+filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent9input.txt'
 
-digitlist.pop(0)
-digitsize.pop(0)
-digitwire.pop(0)
+h1 = [ list(x) for x in [x for x in open (filename).read().strip().split('\n') ]]
+hd = [ [0 for x in range(len(h1[0]))]     for x in [ x for x in range(len(h1))]]
+print ('input file....')
+for x in h1:
+    print (x)
+for x in hd:
+    print (x)
+
+for i in range(len(h1)):
+    for j in range (len(h1[0])):
+        # print (h1[i][j])
+        if checkdeepest (i,j,h1):
+            hd[i][j] = int(h1[i][j])+1
+sum=0
+for x in hd:
+    for y in x:
+        print (y)
+        sum += int(y)
+
+for x in hd:
+    print (x)
+print (sum)
