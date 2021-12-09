@@ -18,7 +18,7 @@ def calculateFinalnumber (display, wiring ):
     totalnum4 = findnumber ( display[len(display)-1], wiring )
     totalnum = totalnum4+totalnum3+totalnum2+totalnum1
 
-    if totalnum < 1000 :
+    if totalnum1 < 0 or totalnum2 < 0 or totalnum3 < 0 or totalnum4 < 0  :
         print (display)
         print (wiring)
         print ( 'first digit ' + str(totalnum1 ))
@@ -78,23 +78,27 @@ for i in range (0,len(digitlist)):
                 # print ( 'Still search betwee 2 and 5 ' + str ( digitlist[i][j] ) )
         elif digitsize[i][j] == 6 and digitwire[i][6] == '': # 0. 6, 9
             processwire = digitlist[i][j]
-            if (processwire.count(digitwire[i][1][0]) == 0) or (processwire.count(digitwire[i][1][1]) == 0) :
+            # print ('wiring ' + str(digitwire[i][1]))
+            # print ('curr ' + str(processwire))
+            if ((processwire.count(digitwire[i][1][0]) == 0) and (processwire.count(digitwire[i][1][1]) != 0)) or ((processwire.count(digitwire[i][1][0]) != 0) and (processwire.count(digitwire[i][1][1]) == 0))  :
                 digitwire[i][6] = digitlist[i][j]
             # else:
                 # print ( 'Still search between 0 and 9 ' + str ( digitlist[i][j] ) )
     for j in range ( 0, len ( digitlist[i])):
-        if digitsize[i][j] == 6 and j != 6 :  # 9 and 0
+        if digitsize[i][j] == 6 and  foundmatch (digitlist[i][j], digitwire[i][6]) != 0 :  # 9 and 0
             processwire = digitlist[i][j]
             checkwires = digitwire[i][4] + digitwire[i][3]
             checkwires6 = digitwire [i][6]
-            # print ('processwires ' + processwire )
-            # print ('checkwires ' + checkwires)
+
             digit1 = set(checkwires)
             digit2 = set(processwire)
-            digit3 = digit1.difference(digit2)
+            digit3 = digit2.difference(digit1)
             digit4 = set(checkwires6)
             digit5 = digit2.difference(digit4)
-            # print ('difference ' + str(digit3))
+            if i == -1 :
+                print ('check for ' + str(processwire))
+                print ('digitmatch ' + str(checkwires))
+                print ('digit 3 difference ' + str(digit3))
             if len(digit3) == 0 :
                 # print ('found 9')
                 digitwire[i][9] = digitlist[i][j]
@@ -102,8 +106,9 @@ for i in range (0,len(digitlist)):
                 if len(digit5)!=0 :
                     # print ('think 0')
                     digitwire[i][0] = digitlist[i][j]
+
     for j in range ( 0, len ( digitlist[i])):
-        if digitsize[i][j] == 5 and j != 3 :  # 2 and 5
+        if digitsize[i][j] == 5 and foundmatch (digitlist[i][j],digitwire[i][3]) != 0  :  # 2 and 5
             processwire = digitlist[i][j]
             checkwires = digitwire[i][9]
             # print ('processwires ' + processwire )
@@ -120,22 +125,17 @@ for i in range (0,len(digitlist)):
                 digitwire[i][2] = digitlist[i][j]
 
     # print('processed digits = ' + str(digitwire[i]))
-'''
-for i in range (0,len(digitwire)):
-    tempnum = calculateFinalnumber ( digitlist[i][len ( digitlist[i] ) - 4:], digitwire[i] )
-    if tempnum < 1000 :
-        print (digitlist[i][len ( digitlist[i] ) - 4:])
-        print (digitsize[i])
-        print (digitwire[i])
-        print (calculateFinalnumber ( digitlist[i][len ( digitlist[i] ) - 4:], digitwire[i] ))
-'''
+
 print ('Starting to process the numbers...')
 
 totalnum = 0
 currnum = 0
 for i in range (0,len(digitlist)):
+    print ('Main row ' + str(i))
     currnum = calculateFinalnumber ( digitlist[i], digitwire[i] )
     totalnum += currnum
 print ('Total sum ' + str(totalnum))
 
 # 979373 too low
+
+# 34, 70 90 96  102 121 181
