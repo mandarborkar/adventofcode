@@ -1,34 +1,29 @@
 def calculatecbc (x):
-
     count = 0
     counter = []
-    for i in range (0, len(x)):
+    for i in range (len(x)-1,-1,-1):
         if x[i] == '(':
-            score=1
             counter.append (1)
         elif x[i] == '[':
-            score = 2
             counter.append(2)
         elif x[i] == '{':
-            score = 3
             counter.append(3)
         elif x[i] == '<':
-            score = 4
             counter.append(4)
 
-        count = (count*5) + score
-    print (counter)
+    # print (counter)
+
+    for x in counter:
+        count = (count*5) + int(x)
+
+    # print ('Calculating cbc '+ str(x) + ' ' + str(count))
 
     return count
 
-filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent10testinput.txt'
-
-h1 = [ list(x) for x in [x for x in open (filename).read().strip().split('\n') ]]
-
+zb = []
 totalses = 0
-totalcbs = 0
-finaly = []
-validx = True
+filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent10input.txt'
+h1 = [ list(x) for x in [x for x in open (filename).read().strip().split('\n') ]]
 
 for x in h1:
     # print ('Main row '+str(x))
@@ -61,12 +56,20 @@ for x in h1:
             i = -1
         i += 1
         if i >= len (y)-1 :
+            zb.append (y)
             break;
-    if validx :
-        print ('Post processing ' + str(y))
-        finaly.append ([calculatecbc (y)])
-        validx = True
 
 print ('Total SES ' + str(totalses))
-for x in finaly:
-    print (x)
+
+finaly = []
+totalcbc = 0
+
+for x in zb:
+    # print (x)
+    totalcbc = calculatecbc ( x )
+    finaly.append (totalcbc)
+
+finaly.sort()
+finalmid=(len(finaly)//2)
+print (finaly)
+print ('final print...'+ str(finalmid) + ' ' + str(finaly[finalmid]))
