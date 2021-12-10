@@ -72,4 +72,4 @@ for x in zb:
 finaly.sort()
 finalmid=(len(finaly)//2)
 print (finaly)
-print ('final print...'+ str(finalmid) + ' ' + str(finaly[finalmid]))
+print ('final print.....'+ str(finalmid) + ' ' + str(finaly[finalmid]))
