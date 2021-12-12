@@ -1,75 +1,31 @@
-def calculatecbc (x):
-    count = 0
-    counter = []
-    for i in range (len(x)-1,-1,-1):
-        if x[i] == '(':
-            counter.append (1)
-        elif x[i] == '[':
-            counter.append(2)
-        elif x[i] == '{':
-            counter.append(3)
-        elif x[i] == '<':
-            counter.append(4)
-
-    # print (counter)
-
-    for x in counter:
-        count = (count*5) + int(x)
-
-    # print ('Calculating cbc '+ str(x) + ' ' + str(count))
-
-    return count
-
-zb = []
-totalses = 0
+def printjelly (x):
+    for x in jellyn:
+        print(x)
 filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent11testinput.txt'
-h1 = [ list(x) for x in [x for x in open (filename).read().strip().split('\n') ]]
+jellyb = [ list(x) for x in [y for y in open (filename).read().strip().split('\n') ]]
+jellyn = []
 
-for x in h1:
-    # print ('Main row '+str(x))
-    y = [ x for x in x]
-    #print (y)
-    i = 0
+for i in range (0,len(jellyb)):
+    jx = []
+    for j in range (0,len(jellyb[0])):
+        jx.append (int(jellyb[i][j]))
+    jellyn.append(jx)
 
-    while len(y) > 1 :
-        z = y[i] + y[i + 1]
-        if (y[i + 1] == '}' and y[i] != '{') or  (y[i+1] == ']' and y[i] != '[') or  (y[i+1] == ')' and y[i] != '(') or  ( y[i+1] == '>' and y[i] != '<'):
-            #print (y)
-            # print('Found incorrect ' + str(y[i:i + 2]))
-            if (y[i+1]) == ')' :
-                totalses += 3
-            elif (y[i+1]) == ']' :
-                totalses += 57
-            elif (y[i+1]) == '}' :
-                totalses += 1197
-            elif (y[i+1]) == '>' :
-                totalses +=  25137
-            y.pop (i)
-            y.pop (i)
-            i = -1
-            validx = False
-            break
-        elif z == '[]' or z == '{}' or z == '()' or z == '<>':
-            #print('Found match popping them out ' + str(y[i:i + 1]))
-            y.pop(i)
-            y.pop(i)
-            i = -1
-        i += 1
-        if i >= len (y)-1 :
-            zb.append (y)
-            break;
+jflash = 0
+# printjelly(jellyn)
 
-print ('Total SES ' + str(totalses))
+for stepx in range (1,101):
+    print('Step ' + str(stepx))
+    printjelly(jellyn)
+    for i in range (0,len(jellyn)):
+        for j in range (0,len(jellyn[i])):
+            if jellyn[i][j] == 9:
+                jellyn[i][j] = 0
+            elif jellyn[i][j] == 0:
+                jflash += 1
+                jellyn[i][j] += 1
 
-finaly = []
-totalcbc = 0
+            else:
+                jellyn[i][j] += 1
 
-for x in zb:
-    # print (x)
-    totalcbc = calculatecbc ( x )
-    finaly.append (totalcbc)
-
-finaly.sort()
-finalmid=(len(finaly)//2)
-print (finaly)
-print ('final print.....'+ str(finalmid) + ' ' + str(finaly[finalmid]))
+print ('No of flashes = ' + str(jflash))
