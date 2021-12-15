@@ -1,59 +1,128 @@
-import networkx as nx
+def print_paper (paper):
+    for x in paper :
+        print (paper)
+
+def reflexx(str,coor) :
+    mergex = ''
+    for i in range (0,coor):
+        if str[i]=='#' or str[coor+1-i]=='#':
+            mergex += '#'
+        else:
+            mergex += '.'
+    return mergex
+
+def mergestr (str1, str2):
+    mergex = ''
+    for i in range (0,len(str1)):
+        if str1[i]=='#' or str2[i]=='#':
+            mergex += '#'
+        else:
+            mergex += '.'
+    return mergex
 
 filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent13testinput.txt'
-
-h1 = [x.split('-') for x in [x for x in open (filename).read().strip().split('\n')]]
-x1 =[]
-
-totalses = 0
-
+h1 = [x.split(',') for x in [x for x in open (filename).read().strip().split('\n')]]
+h2 = []
+h3 = []
+h4 = []
+paper1 = []
+xlist = []
+ylist = []
+instruction = False
 for x in h1:
-    x1.append(x[0])
-    x1.append(x[1])
-#    print (x1)
+    if x[0] == '' or instruction :
+        instruction = True
+        h3.append(x)
+    else :
+        # print (x)
+        h2.append(x)
+        xlist.append(int(x[0]))
+        ylist.append(int(x[1]))
 
-xset = set(x1)
-uniquenodes = (list(xset))
+xmax = max(xlist) + 1
+ymax = max(ylist) + 1
 
-# print (x1)
-# print (uniquenodes)
+paper = ['.'*xmax]*ymax
 
-# Creating a Graph
-G = nx.Graph() # Right now G is empty
-G.add_nodes_from(uniquenodes)
-for i in range (0,len(x1),2):
-    G.add_edge(x1[i],x1[i+1])
+# print (len(paper[0]))
+# print (len(paper))
 
-# Let us find all the paths available
-for path in nx.all_simple_paths(G, source='start', target='end'):
- print(path)
+xpaper = []
+for x in h2:
+    y = int(x[1])
+    x = int(x[0])
+    print (str(y)+' '+str(x)+'      '+str(paper[y]))
+    if x == 0 :
+        paper[y] = '#' + paper[y][x:len(paper[y]) - 1]
+    elif x == len(paper[y]):
+        print ('x='+str(x))
+        paper[y] = paper[y][:x] + '#'
+    else:
+        paper[y] = paper[y][:x] + '#' + paper[y][x+1:]
+    print (str(y)+' '+str(x)+'      '+str(paper[y]))
 
-# Let us find the dijkstra path from JAX to DFW.
-# You can read more in-depth on how dijkstra works from this resource - https://courses.csail.mit.edu/6.006/fall11/lectures/lecture16.pdf
-dijpath = nx.dijkstra_path(G, source='start', target='end')
-dijpath
+h3.pop(0)
+for x in h3 :
+    # print (x)
+    h4.append(x[0].split('='))
 
-print ('dij path ' + str(dijpath))
+splitalong = [[]]
 
-# A = pgv.AGraph(data=G)
-# print(A) # This is the 'string' or simple representation of the Graph
+for x in h4:
+    # print (x)
+    if x[0] == 'fold along y' :
+        splitalong.append(['y', int(x[1])])
+    else:
+        splitalong.append(['x', int(x[1])])
+    # print (splitalong)
+splitalong.pop(0)
+
+for x in splitalong:
+    print (x)
+    coor = x[1]
+    paper1 = []
+    if x[0]=='y':
+        if len(paper)-1 > 2 * coor :
+            print ('grid>'+str(coor)+' '+ str(len(paper)))
+            for i in range (len(paper)-1,2*coor,-1):
+                paper1.append(paper[i])
+        for i in range (0,coor):
+            paper1.append(mergestr(paper[i],paper[(2*coor)-i]))
+            print(str(i) + ' ' + str((2*coor) - i) + ' ' + str(paper1[len(paper1) - 1]))
+    if x[0]=='x':
+        for i in range(0, len(paper)):
+            paper1.append(reflexx(paper[i],coor))
+            print(str(i) + ' ' + str((2 * coor) - i) + ' ' + str(paper1[len(paper1) - 1]))
+
+        if len(paper[0])-1 > 2 * coor :
+            print ('grid>'+str(coor)+' '+ str(len(paper[0])))
+            for i in range (0,len(paper)):
+                paper1.append(paper[i])
+    paper = paper1
+    print ('Folding ')
+    print_paper(paper1)
+
+
+i=0
+for x in paper :
+    print ('counter '+str(i)+ ' ' +str(x))
+    i += 1
+print ('folded')
+i=0
+for x in paper1:
+    # print (x)
+    print ('counter '+str(i)+ ' ' +str(x))
+    i += 1
 
 '''
-# Creating a Graph
-G = nx.Graph() # Right now G is empty
+1 1
+2 2
+3 3
+4 4
+5 4
+6 3
+7 2
+8 1
 
-# Add a node
-G.add_node(1) 
-G.add_nodes_from([2,3]) # You can also add a list of nodes by passing a list argument
-
-# Add edges 
-G.add_edge(1,2)
-
-e = (2,3)
-G.add_edge(*e) # * unpacks the tuple
-G.add_edges_from([(1,2), (1,3)]) # Just like nodes we can add edges from a list
-
-# Let us find all the paths available
-for path in nx.all_simple_paths(FG, source='JAX', target='DFW'):
- print(path)
 '''
+
