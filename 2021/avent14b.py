@@ -1,75 +1,48 @@
-def calculatecbc (x):
-    count = 0
-    counter = []
-    for i in range (len(x)-1,-1,-1):
-        if x[i] == '(':
-            counter.append (1)
-        elif x[i] == '[':
-            counter.append(2)
-        elif x[i] == '{':
-            counter.append(3)
-        elif x[i] == '<':
-            counter.append(4)
 
-    # print (counter)
+filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent14testinput.txt'
 
-    for x in counter:
-        count = (count*5) + int(x)
+f1 = open(filename, "r")
+polymer1 = f1.readlines()
 
-    # print ('Calculating cbc '+ str(x) + ' ' + str(count))
+polymerx = polymer1[0].replace(' ','').replace('\n','')
+# print (polymerx)
 
-    return count
+polycode=[]
+for x in polymer1[2:]:
+    polycode.append(x.replace(' ','').replace('\n','').split('->'))
 
-zb = []
-totalses = 0
-filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent14input.txt'
-h1 = [ list(x) for x in [x for x in open (filename).read().strip().split('\n') ]]
+# print (polycode)
+i = 0
+for i in range(0,10):
+    polymery = polymerx[0]
+    for i in range (0,len(polymerx)-1):
+        strx = polymerx[i:i+2]
+        polymery += polymerx[i+1:i+1]
+        # print ('str = '+strx+ ' '+ str(polymery))
+        foundpoly = []
+        for x in polycode:
+            if x[0].find(strx) != -1 :
+                # print ('found ' + x[0]+' '+strx+' ' + x[1])
+                foundpoly.append(x)
+                polymery += x[1]
+        polymery += polymerx[i+1:i+2]
+    # print (polymery)
+    polymerx = polymery
 
-for x in h1:
-    # print ('Main row '+str(x))
-    y = [ x for x in x]
-    #print (y)
-    i = 0
-
-    while len(y) > 1 :
-        z = y[i] + y[i + 1]
-        if (y[i + 1] == '}' and y[i] != '{') or  (y[i+1] == ']' and y[i] != '[') or  (y[i+1] == ')' and y[i] != '(') or  ( y[i+1] == '>' and y[i] != '<'):
-            #print (y)
-            # print('Found incorrect ' + str(y[i:i + 2]))
-            if (y[i+1]) == ')' :
-                totalses += 3
-            elif (y[i+1]) == ']' :
-                totalses += 57
-            elif (y[i+1]) == '}' :
-                totalses += 1197
-            elif (y[i+1]) == '>' :
-                totalses +=  25137
-            y.pop (i)
-            y.pop (i)
-            i = -1
-            validx = False
-            break
-        elif z == '[]' or z == '{}' or z == '()' or z == '<>':
-            #print('Found match popping them out ' + str(y[i:i + 1]))
-            y.pop(i)
-            y.pop(i)
-            i = -1
-        i += 1
-        if i >= len (y)-1 :
-            zb.append (y)
-            break;
-
-print ('Total SES ' + str(totalses))
-
-finaly = []
-totalcbc = 0
-
-for x in zb:
+polyset = set(polymery)
+polydic = {}
+for x in polyset:
     # print (x)
-    totalcbc = calculatecbc ( x )
-    finaly.append (totalcbc)
+    # print (polymery.count(x))
+    polydic.update({x:polymery.count(x)})
 
-finaly.sort()
-finalmid=(len(finaly)//2)
-print (finaly)
-print ('final print.....'+ str(finalmid) + ' ' + str(finaly[finalmid]))
+print (polydic)
+
+key_max = max(polydic.keys(), key=(lambda k: polydic[k]))
+key_min = min(polydic.keys(), key=(lambda k: polydic[k]))
+
+print('Maximum Value: ',polydic[key_max])
+print('Minimum Value: ',polydic[key_min])
+print('Diff : ', str(polydic[key_max]-polydic[key_min]))
+
+print ('final' + ' ' + str(polymery.count('B')))
