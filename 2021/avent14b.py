@@ -8,9 +8,39 @@ polymerx = polymer1[0].replace(' ','').replace('\n','')
 # print (polymerx)
 
 polycode=[]
+polydic={}
 for x in polymer1[2:]:
     polycode.append(x.replace(' ','').replace('\n','').split('->'))
+    polycode[len(polycode)-1].append(0);
+    polydic[polycode[len(polycode)-1][0]] = [polycode[len(polycode)-1][1],0]
 
+print (polydic)
+
+for i in range (0,len(polymerx)-1):
+    polykey = polymerx[i:i + 2]
+    if polykey in polydic:
+        # polydic.update({polykey:[polydic[polykey][0],polydic[polykey][1]+1]})
+        polyval = list(polydic[polykey])
+        newpolycount = polyval[1]
+        # print (polyval)
+        if len(polyval[0]) > 0:
+            newpolyval1 = polykey[0] + polyval[0][0]
+            newpolyval2 = polyval[0][0] + polykey[1]
+            polydic.update({newpolyval1: ['',newpolycount+1]})
+            polydic.update ({newpolyval2: ['', newpolycount+1]} )
+            polydic.update({polykey:[polyval,0]})
+        else:
+            polydic.update ( {polykey: ['', 1]} )
+    else:
+        polydic.update ( {polykey: ['', newpolycount+1]} )
+
+for x,y  in polydic.items():
+    if y[1]>0:
+        print ('Null found '+ str(x),str(y))
+    # else:
+      #  print (x,y)
+# print (polydic)
+'''
 # print (polycode)
 i = 0
 for i in range(0,10):
@@ -44,5 +74,4 @@ key_min = min(polydic.keys(), key=(lambda k: polydic[k]))
 print('Maximum Value: ',polydic[key_max])
 print('Minimum Value: ',polydic[key_min])
 print('Diff : ', str(polydic[key_max]-polydic[key_min]))
-
-print ('final' + ' ' + str(polymery.count('B')))
+'''

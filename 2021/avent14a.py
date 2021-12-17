@@ -44,5 +44,3 @@ key_min = min(polydic.keys(), key=(lambda k: polydic[k]))
 print('Maximum Value: ',polydic[key_max])
 print('Minimum Value: ',polydic[key_min])
 print('Diff : ', str(polydic[key_max]-polydic[key_min]))
-
-print ('final' + ' ' + str(polymery.count('B')))
