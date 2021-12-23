@@ -1,5 +1,5 @@
-
-filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent14testinput.txt'
+from collections import Counter
+filename = '/Users/mborkar/PycharmProjects/adventofcode/2021/avent14input.txt'
 
 f1 = open(filename, "r")
 polymer1 = f1.readlines()
@@ -7,71 +7,96 @@ polymer1 = f1.readlines()
 polymerx = polymer1[0].replace(' ','').replace('\n','')
 # print (polymerx)
 
-polycode=[]
 polydic={}
 for x in polymer1[2:]:
-    polycode.append(x.replace(' ','').replace('\n','').split('->'))
-    polycode[len(polycode)-1].append(0);
-    polydic[polycode[len(polycode)-1][0]] = [polycode[len(polycode)-1][1],0]
-
+    key, repl = x.replace(' ','').replace('\n','').split('->')
+    polydic[key] = repl
 print (polydic)
 
-for i in range (0,len(polymerx)-1):
-    polykey = polymerx[i:i + 2]
-    if polykey in polydic:
-        # polydic.update({polykey:[polydic[polykey][0],polydic[polykey][1]+1]})
-        polyval = list(polydic[polykey])
-        newpolycount = polyval[1]
-        # print (polyval)
-        if len(polyval[0]) > 0:
-            newpolyval1 = polykey[0] + polyval[0][0]
-            newpolyval2 = polyval[0][0] + polykey[1]
-            polydic.update({newpolyval1: ['',newpolycount+1]})
-            polydic.update ({newpolyval2: ['', newpolycount+1]} )
-            polydic.update({polykey:[polyval,0]})
-        else:
-            polydic.update ( {polykey: ['', 1]} )
-    else:
-        polydic.update ( {polykey: ['', newpolycount+1]} )
+mainPoly = Counter ()
+for i in range (len(polymerx)-1):
+    mainPoly[polymerx[i]+polymerx[i+1]] += 1
+print (mainPoly)
+repeatcount = 41
+for repeat in range (repeatcount):
+    ElementCounter = Counter()
+    for i in mainPoly :
+        ElementCounter[i[0]] += mainPoly[i]
+        # print(ElementCounter)
+    ElementCounter[polymerx[-1]] += 1
 
-for x,y  in polydic.items():
-    if y[1]>0:
-        print ('Null found '+ str(x),str(y))
-    # else:
-      #  print (x,y)
-# print (polydic)
+    if repeat == repeatcount-1 :
+        # print (ElementCounter)
+        print (max(ElementCounter.values()))
+        print (min(ElementCounter.values()))
+        print (max(ElementCounter.values()) - (min(ElementCounter.values())))
+
+    morph = Counter()
+    for i in mainPoly :
+        morph[i[0]+polydic[i]] += mainPoly[i]
+        morph[polydic[i]+i[1]] += mainPoly[i]
+
+    mainPoly = morph
+
 '''
-# print (polycode)
-i = 0
-for i in range(0,10):
-    polymery = polymerx[0]
+chardic = {}
+for j in range (0,6):
     for i in range (0,len(polymerx)-1):
-        strx = polymerx[i:i+2]
-        polymery += polymerx[i+1:i+1]
-        # print ('str = '+strx+ ' '+ str(polymery))
-        foundpoly = []
-        for x in polycode:
-            if x[0].find(strx) != -1 :
-                # print ('found ' + x[0]+' '+strx+' ' + x[1])
-                foundpoly.append(x)
-                polymery += x[1]
-        polymery += polymerx[i+1:i+2]
-    # print (polymery)
-    polymerx = polymery
+        polykey = polymerx[i:i + 2]
+        print ('poly = '+ polykey)
+        if polykey in polydic:
+            # polydic.update({polykey:[polydic[polykey][0],polydic[polykey][1]+1]})
+            print('Found poly = ' + polykey)
+            polyval = list(polydic[polykey])
+            newpolycount = polyval[1]
+            print (polyval)
+            if len(polyval[0]) > 0:
+                print ('repl '+polyval[0][0])
+                newpolyval1 = polykey[0] + polyval[0][0]
+                newpolyval2 = polyval[0][0] + polykey[1]
+                print (newpolyval1+' '+str(newpolycount+1))
+                print (newpolyval2 + ' ' + str(newpolycount + 1))
+                print (polykey+ ' ' + polyval[0][0] + ' 0' )
+                if newpolyval1 in polydic:
+                    newrepl1 = list(polydic[newpolyval1])
+                    polydic.update({newpolyval1: [newrepl1[0][0],newrepl1[1]+1]})
+                else:
+                    polydic.update({newpolyval1: ['', 1]})
+                if newpolyval2 in polydic:
+                    newrepl2 = list(polydic[newpolyval2])
+                    polydic.update ({newpolyval2: [newrepl2[0][0], newrepl2[1]+1]} )
+                else:
+                    polydic.update({newpolyval2: ['', 1]})
+                polydic.update({polykey:[polyval[0][0],newpolycount]})
+            else:
+                polydic.update ( {polykey: ['', 1]} )
+        else:
+            polydic.update ( {polykey: ['', newpolycount+1]} )
 
-polyset = set(polymery)
-polydic = {}
-for x in polyset:
-    # print (x)
-    # print (polymery.count(x))
-    polydic.update({x:polymery.count(x)})
+    for x,y  in polydic.items():
+        if y[1]>0:
+            print ('Step ' + str(j) + ' Null found '+ str(x),str(y))
+            xstr = str(x)
+            if xstr[0] in chardic :
+                countx = chardic[xstr[0]]
+                chardic.update({xstr[0]:countx+1})
+            else:
+                chardic.update({xstr[0]:1})
+        # else:
+          #  print (x,y)
+print (chardic)
+fincount=collections.Counter(polydic)
+print (fincount)
 
-print (polydic)
+for x in chardic:
+    fincount += chardic[x]
+print (fincount)
 
-key_max = max(polydic.keys(), key=(lambda k: polydic[k]))
-key_min = min(polydic.keys(), key=(lambda k: polydic[k]))
-
-print('Maximum Value: ',polydic[key_max])
-print('Minimum Value: ',polydic[key_min])
-print('Diff : ', str(polydic[key_max]-polydic[key_min]))
+Template:     NNCB
+After step 1: NCNBCHB
+After step 2: NBCCNBBBCBHCB
+After step 3: NBBBCNCCNBBNBNBBCHBHHBCHB
+After step 4: NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB
+This polymer grows quickly. After step 5, it has length 97; 
+After step 10, it has length 3073. After step 10, B occurs 1749 times, C occurs 298 times, H occurs 161 times, and N occurs 865 times; taking the quantity of the most common element (B, 1749) and subtracting the quantity of the least common element (H, 161) produces 1749 - 161 = 1588.
 '''

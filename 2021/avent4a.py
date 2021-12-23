@@ -27,8 +27,8 @@ def foundwinner (board) :
             calsum (board);
             return True;
 
-# f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2021/avent4input.txt", "r")
-f1 = open("2021/avent4input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2021/avent4input.txt", "r")
+# f1 = open("2021/avent4input.txt", "r")
 
 fileinput = f1.readlines()
 numsel = fileinput[0].replace ( '\n', '' ).split ( "," )
