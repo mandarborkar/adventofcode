@@ -7,7 +7,6 @@ fuelcost = []
 maxpos = max(crabpos)
 minpos = min(crabpos)
 
-
 for j in range(minpos,maxpos):
     fuel = 0
     for i in range (0,len(crabpos)):
