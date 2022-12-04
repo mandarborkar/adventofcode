@@ -1,6 +1,6 @@
 calorieslist = [0]
 
-f1 = open("/2022/advent2input.txt", "r")
+f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2022/advent2input.txt, "r")
 inputlist = f1.readlines()
 
 j = 0
