@@ -6,7 +6,7 @@ inputlist = f1.readlines()
 j=0
 for i in range (0,len(inputlist)):
     if inputlist[i] == '\n' :
-        j +=1 ;
+        j +=1
         calorieslist.append(0)
     else:
         calorieslist[j] += int(inputlist[i].replace('\n', ''))
