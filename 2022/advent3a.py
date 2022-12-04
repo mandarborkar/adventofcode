@@ -24,7 +24,7 @@ inputlist = f1.readlines()
 
 myTotalScore=0
 
-for i in range (0,2):
+for i in range (0,3):
     runsack = inputlist[i].replace('\n', '')
     print(runsack)
     length = int(len(runsack)/2)
@@ -33,8 +33,10 @@ for i in range (0,2):
     print (runsack1)
     print (runsack2)
     print (set(runsack1).intersection(runsack2))
-    common=str(type(set(runsack1).intersection(runsack2)))
+    common=''
+    common=str(set(runsack1).intersection(runsack2))
+    print (common)
     print (ord(common[0]))
 
-print (ord('b')-96)
+print (ord('w'))
 print (ord('B')-65+27)
