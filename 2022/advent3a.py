@@ -1,10 +1,7 @@
-# Scoring
-# 1 for Rock, 2 for Paper, and 3 for Scissors
-# 0 if you lost, 3 if the round was a draw, and 6 if you won
 
-# A for Rock, B for Paper, and C for Scissors
-# X for Rock, Y for Paper, and Z for Scissors
-# Win Rock (X) defeats Scissors (C), Scissors (Z) defeats Paper (B), and Paper (Y) defeats Rock (A).
+def findduplicate(runsack1, runsack2):
+    print (runsack1+runsack2)
+
 
 def calculatescore (play1, play2):
     score=0
@@ -27,6 +24,17 @@ inputlist = f1.readlines()
 
 myTotalScore=0
 
-for i in range (0,len(inputlist)):
-    myTotalScore += calculatescore(inputlist[i][0], inputlist[i][2])
-    print ('play = ' + inputlist[i] + ' current score = ' + str(myTotalScore))
+for i in range (0,2):
+    runsack = inputlist[i].replace('\n', '')
+    print(runsack)
+    length = int(len(runsack)/2)
+    runsack1 = list(runsack[0:length])
+    runsack2 = list(runsack[length+1:])
+    print (runsack1)
+    print (runsack2)
+    print (set(runsack1).intersection(runsack2))
+    common=str(type(set(runsack1).intersection(runsack2)))
+    print (ord(common[0]))
+
+print (ord('b')-96)
+print (ord('B')-65+27)
