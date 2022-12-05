@@ -1,4 +1,17 @@
 
+'''
+[N]         [C]     [Z]
+[Q] [G]     [V]     [S]         [V]
+[L] [C]     [M]     [T]     [W] [L]
+[S] [H]     [L]     [C] [D] [H] [S]
+[C] [V] [F] [D]     [D] [B] [Q] [F]
+[Z] [T] [Z] [T] [C] [J] [G] [S] [Q]
+[P] [P] [C] [W] [W] [F] [W] [J] [C]
+[T] [L] [D] [G] [P] [P] [V] [N] [R]
+ 1   2   3   4   5   6   7   8   9
+'''
+
+
 def fullycontained(fcs1, fce1, fcs2, fce2):
     if ((fcs1 <= fcs2) and (fce1 >= fce2)) or ((fcs2 <= fcs1) and (fce2 >= fce1)):
         print('contained')
