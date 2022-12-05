@@ -4,23 +4,25 @@ inputlist = f1.readlines()
 
 myTotalScore = 0
 
-for i in range (0,len(inputlist)):
-    runsack = inputlist[i].replace('\n', '')
+for i in range (0,len(inputlist),3):
+    runsack1 = inputlist[i].replace('\n', '')
+    runsack2 = inputlist[i+1].replace('\n', '')
+    runsack3 = inputlist[i+2].replace('\n', '')
 
-    length = int(len(runsack)/2)
-    runsack1 = list(runsack[0:length])
-    runsack2 = list(runsack[length:])
+    # length = int(len(runsack)/2)
+    # runsack1 = list(runsack[0:length])
+    # runsack2 = list(runsack[length:])
 
     print('\ncounter = ' + str(i))
-    print(runsack)
     print(runsack1)
     print(runsack2)
-    print(list(set(runsack1) & set(runsack2)))
-    print('length = ' + str(len(list(set(runsack1) & set(runsack2)))))
+    print(runsack3)
+    print(list(set(runsack1) & set(runsack2) & set(runsack3)))
+    print('length = ' + str(len(list(set(runsack1) & set(runsack2) & set(runsack3)))))
 
-    if list(set(runsack1) & set(runsack2)) :
-        for j in range (0,len(list(set(runsack1) & set(runsack2)))):
-            common = ord(list(set(runsack1) & set(runsack2))[j])
+    if list(set(runsack1) & set(runsack2) & set(runsack3)) :
+        for j in range (0,len(list(set(runsack1) & set(runsack2) & set(runsack3)))):
+            common = ord(list(set(runsack1) & set(runsack2) & set(runsack3))[j])
 
             if common > 91:
                 common -= 96
@@ -29,7 +31,7 @@ for i in range (0,len(inputlist)):
 
             myTotalScore += common
 
-            print(list(set(runsack1) & set(runsack2))[j])
+            print(list(set(runsack1) & set(runsack2) & set(runsack3))[j])
             print('Add to score ' + str(common))
             print('Current score ' + str(myTotalScore))
 
