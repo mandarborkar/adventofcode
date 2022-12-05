@@ -1,4 +1,3 @@
-
 f1 = open("/Users/mborkar/PycharmProjects/adventofcode/2022/advent3input.txt", "r")
 inputlist = f1.readlines()
 
