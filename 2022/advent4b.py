@@ -1,7 +1,10 @@
 
 def fullycontained(fcs1, fce1, fcs2, fce2):
-    if ((fcs1 <= fcs2) and (fce1 >= fce2)) or ((fcs2 <= fcs1) and (fce2 >= fce1)):
-        print('contained')
+    if ((fcs1 <= fcs2) and (fce1 >= fce2)) or \
+            ((fcs2 <= fcs1) and (fce2 >= fce1)) or \
+            ((fcs1 >= fcs2) and (fcs1 <= fce2)) or \
+            ((fce1 >= fcs2) and (fce1 <= fce2)):
+        print('overlap')
         return 1
     return 0
 
