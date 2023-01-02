@@ -20,7 +20,7 @@ for snafu in snafulist:
     # print (snafu,snafu[j],j,i, fuel, fueltotal)
     fueltotal += fuel
 
-print (fueltotal)
+print(fueltotal)
 # 183488001053
 fivex = [5**x for x in range(0,int(fueltotal/(183488001053))) if 5**x < fueltotal]
 print(fivex[::-1])
