@@ -14,6 +14,7 @@ t = {
     "=": -2
 }
 
+
 tx = {d:s for s,d in t.items()}
 for x in revsnafulist:
     power = 1
