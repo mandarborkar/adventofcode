@@ -1,15 +1,14 @@
-calorieslist = [0]
-
-f1 = open("/2022/advent1input.txt", "r")
+f1 = open("advent1input.txt", "r")
 inputlist = f1.readlines()
 
-j = 0
-for i in range(0, len(inputlist)):
-    if inputlist[i] == '\n':
-        j += 1
-        calorieslist.append(0)
-    else:
-        calorieslist[j] += int(inputlist[i].replace('\n', ''))
-    print(calorieslist[j])
+digitarr = [c.replace('\n', '') for c in inputlist]
 
-print("Elf no. " + str(calorieslist.index(max(calorieslist))) + " has max calories " + str(max(calorieslist)))
+total = 0
+
+for i in range(0, len(digitarr)):
+    translateTable = digitarr[i].maketrans("abcdefghijklmnopqrstuvwxyz", "                          ")
+    output = digitarr[i].translate(translateTable)
+    output1 = output.replace (' ', '')
+    total += int(output1[0])*10+int(output1[-1])
+
+print(total)
