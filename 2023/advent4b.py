@@ -7,11 +7,7 @@ inputlist = [c1.split(': ') for c1 in [c.replace('\n', '') for c in f1.readlines
 totalmatch = []
 for i in range (0,len(inputlist)):
     currmatch = [c2.split (' ') for c2 in inputlist[i][1].split(' | ')]
-<<<<<<< HEAD
 
-=======
-    # print (currarr)
->>>>>>> origin/main
     n = 0
     for j in currmatch[0]:
         if j.__eq__('') :
