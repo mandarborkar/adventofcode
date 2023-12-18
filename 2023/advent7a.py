@@ -1,32 +1,39 @@
-seedlist=[79, 14, 55, 13]
-soillist = []
-stflist = []
-ftwlist = []
-wtllist = []
-lttlist = []
-tthlist = []
-htllist = []
-
-sts = [[0,0,50],[50,98,2],[52,50,48]]
-stf = [[0,15,37],[37,52,2],[39,0,15]]
-
-# f1 = open("advent5testinput.txt", "r")
-
-def transformlist (s, t):
-    result = []
-    for i in s:
-        for j in t:
-            if j[0] < i and i < j[0] + j[2]:
-                currsoil = i + (j[0]-j[1])
-                print (i,currsoil, j[1], i, j[0], j[2])
-                result.append(currsoil)
-    return result
+from collections import OrderedDict
+def duplicates (hand):
+    duplicate = []
+    for c in "".join(OrderedDict.fromkeys(hand)):
+        duplicate.append([hand.count(c),c])
+    # print (duplicate)
+    duplicate.sort(key=lambda x: x[0])
+    return duplicate
 
 
-soillist = transformlist(seedlist,sts)
+f1 = open("advent7testinput.txt", "r")
+inputlist = f1.readlines()
+cardlist = [c1.split(' ') for c1 in [c.replace('\n', '') for c in inputlist]]
+# print (cardlist)
+ranking = []
+for i in range (0,len(cardlist)):
+    score = duplicates(cardlist[i][0])
 
-stflist = transformlist(soillist,stf)
+    if score[-1][0] == 5 : # Five of a kind
+        rank = 5
+    elif score[-1][0] == 4: # four of a kind
+        rank = 4
+    elif score[-1][0] == 3 and score[-2][0]==2: # Three of a kind + Pair = Full house
+        rank = 3.5
+    elif score[-1][0] == 3 and score[-2][0]==1: # Three of a kind + individual
+        rank = 3
+    elif score[-1][0] == 2 and score[-2][0]==2: # Two pair
+        rank = 2.5
+    elif score[-1][0] == 2 and score[-2][0]==1: # One pair
+        rank = 2
+    else:
+        rank = 1 #highest card
 
+    ranking.append([cardlist[i][1],rank,score,cardlist[i][0]])
 
-print (soillist)
-print (stflist)
+ranking.sort(key=lambda x: x[1])
+for i in ranking:
+    print (i)
+
