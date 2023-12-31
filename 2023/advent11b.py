@@ -29,7 +29,7 @@ for i in range(0, len(mylist[0])):
         colBlankArr.append(i)
 
 print('empty galaxies row ', rowBlankArr)
-print ('empty galaxies column ',colBlankArr)
+print('empty galaxies column ',colBlankArr)
 
 distArr = []
 
@@ -40,12 +40,8 @@ for c in coordinates:
             distance = abs(c[0] - c_other[0]) + abs(c[1] - c_other[1])
             expandrow    = emptygalaxies (rowBlankArr,c[0],c_other[0])
             expandcolumn = emptygalaxies (colBlankArr,c[1],c_other[1])
-            # distance = distance + ((expandfactor*expandrow)-1) + ((expandfactor*expandcolumn)-1) + 1
             distance = distance + (expandfactor*expandrow) + (expandfactor*expandcolumn) - (expandrow+expandcolumn)
-            # print(c, c_other, distance)
             sumdistance += distance
             distArr.append(distance)
-
-
 
 print ('Total Distance ',sumdistance/2)
