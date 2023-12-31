@@ -11,7 +11,7 @@ mylist = f1.read().split("\n")
 coordinates = []
 rowBlankArr = []
 colBlankArr = []
-expandfactor = 2
+expandfactor = 1000000
 sumdistance = 0
 
 for i in range(0, len(mylist)):
