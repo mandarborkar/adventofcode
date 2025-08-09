@@ -11,4 +11,4 @@ for i in range(0, len(digitarr)):
     output1 = output.replace (' ', '')
     total += int(output1[0])*10+int(output1[-1])
 
-print(total)
+print(total )
